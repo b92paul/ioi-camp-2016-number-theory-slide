@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="下降" />
+  <title>Number Theory</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; }
+code > span.dt { color: #dfdfbf; }
+code > span.dv { color: #dcdccc; }
+code > span.bn { color: #dca3a3; }
+code > span.fl { color: #c0bed1; }
+code > span.ch { color: #dca3a3; }
+code > span.st { color: #cc9393; }
+code > span.co { color: #7f9f7f; }
+code > span.ot { color: #efef8f; }
+code > span.al { color: #ffcfaf; }
+code > span.fu { color: #efef8f; }
+code > span.er { color: #c3bf9f; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Number Theory</h1>
+    <h2 class="author">下降</h2>
+    <h3 class="date">2016/02/01</h3>
+</section>
+
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="數論是什麼" class="slide level2">
+<h1>數論是什麼？</h1>
+<ul>
+<li class="fragment"><p>數論是屬於純數學的一個領域，專注於研究「整數」的性質。</p></li>
+<li class="fragment"><p>因為很常為基礎數學訓練的一個項目，所以也被稱為「The Queen of Mathematics」</p></li>
+<li class="fragment"><p>在資訊領域中最常應用到的是在密碼學</p></li>
+<li class="fragment"><p>競賽中數論算是個通常用到的coding技巧不難，但是吃重數學的思考跟小技巧的領域。</p></li>
+<li class="fragment"><p>意思是如果你會coding量少到讓你開心？</p></li>
+</ul>
+</section><section id="我們等等會講啥" class="slide level2">
+<h1>我們等等會講啥？</h1>
+<ul>
+<li class="fragment">基礎知識</li>
+<li class="fragment">因數與質數</li>
+<li class="fragment">著名的數論定理</li>
+<li class="fragment">循環節</li>
+<li class="fragment">中國剩餘定理</li>
+<li class="fragment">質數專題</li>
+</ul>
+</section></section>
+<section><section id="基礎知識" class="titleslide slide level1"><h1>基礎知識</h1></section><section id="section" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment">數論通常會用到啥呢？</li>
+</ul>
+</section><section id="section-1" class="slide level2">
+<h1>+ , - , * , /</h1>
+<ul>
+<li class="fragment">有人不知道這些操作在幹嘛嗎 OA O?</li>
+</ul>
+</section><section id="mod-模-同餘" class="slide level2">
+<h1>MOD, 模, 同餘</h1>
+<p>&quot;%&quot;</p>
+</section><section id="從除法開始" class="slide level2">
+<h1>從除法開始</h1>
+<ul>
+<li class="fragment"><p>給你兩個數字<span class="math">\(a, m\)</span></p></li>
+<li class="fragment"><p>計算<span class="math">\(a\)</span>「除以」<span class="math">\(m\)</span>的結果</p>
+<p><span class="math">\(a = b \times m + r\)</span></p></li>
+<li class="fragment"><p>這裡特別有<span class="math">\(0 \le r \le m-1\)</span></p></li>
+</ul>
+</section><section id="同餘" class="slide level2">
+<h1>同餘</h1>
+<ul>
+<li class="fragment"><p>我們會說<span class="math">\(a,b\)</span>在<span class="math">\(m\)</span>下同餘意思是，</p>
+<p><span class="math">\(a,b\)</span>除以<span class="math">\(m\)</span>的餘數相同</p></li>
+<li class="fragment"><p>數學上我們會用</p>
+<p><span class="math">\(a \equiv r \bmod{m}\)</span> 表示</p></li>
+</ul>
+</section><section id="同餘系" class="slide level2">
+<h1>同餘系</h1>
+<ul>
+<li class="fragment"><p>在<span class="math">\(\mod{m}\)</span>之下</p>
+<p>通常我們會用餘數<span class="math">\(r\)</span>來分類整數們</p>
+<p>因為<span class="math">\(0 \le r \le m-1\)</span></p>
+<p>所以我們可以把整數分成<span class="math">\(m\)</span>類</p></li>
+<li class="fragment"><p>我們可以寫<span class="math">\(\mathbb{Z}_m\)</span></p>
+<p>來表示<span class="math">\(\mod{m}\)</span>下的同餘系</p></li>
+</ul>
+</section><section id="在程式裡呢" class="slide level2">
+<h1>在程式裡呢？</h1>
+<ul>
+<li class="fragment"><p>在C++裡面可以用「%」來算出餘數</p>
+a % m = r</li>
+<li class="fragment"><p>但要特<strong>別特別注</strong>意的是，在C++裡面當<span class="math">\(a\)</span>是負數時</p>
+<p>a % m = r所獲得的r</p>
+<p><span class="math">\(-m+1 \le r \le 0\)</span></p></li>
+</ul>
+</section><section id="gcd" class="slide level2">
+<h1>GCD</h1>
+<ul>
+<li class="fragment"><p>Greatest Common Divisor</p></li>
+<li class="fragment"><p>通常數學上會寫為<span class="math">\(\gcd\)</span></p></li>
+</ul>
+</section><section id="lcm" class="slide level2">
+<h1>LCM</h1>
+<ul>
+<li class="fragment"><p>Least common multiple</p></li>
+<li class="fragment"><p>對於兩個數字<span class="math">\(a, b\)</span>，有<span class="math">\(ab = \gcd(a,b) \times lcm(a,b)\)</span></p></li>
+</ul>
+</section><section id="要怎樣算呢" class="slide level2">
+<h1>要怎樣算呢？</h1>
+<ul>
+<li class="fragment"><p>要計算GCD我們會使用輾轉相除法</p></li>
+<li class="fragment"><p>用到性質如果<span class="math">\(a=br +c\)</span></p></li>
+<li class="fragment"><p>會有<span class="math">\(\gcd(a,b)=\gcd(b,c)\)</span></p>
+<p>有趣的是<span class="math">\(a \ge b, b &gt; c\)</span></p></li>
+<li class="fragment"><p>這樣遞迴下去就會得到最大公因數</p></li>
+</ul>
+</section><section id="gcd-code" class="slide level2">
+<h1>GCD code</h1>
+<pre class="sourceCode cpp numberLine"><code class="sourceCode cpp"><span class="dt">int</span> gcd(<span class="dt">int</span> a,<span class="dt">int</span> b){
+    <span class="kw">if</span>(b==<span class="dv">0</span>) <span class="kw">return</span> a;
+    <span class="kw">else</span> <span class="kw">return</span> gcd(b,a%b);
+}</code></pre>
+</section><section id="gcd-精簡版" class="slide level2">
+<h1>GCD 精簡版</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp">std::__gcd(a,b)</code></pre>
+<ul>
+<li class="fragment">耶XD</li>
+</ul>
+</section><section id="快速冪" class="slide level2">
+<h1>快速冪</h1>
+<ul>
+<li class="fragment"><p>我們很常要算<span class="math">\(a^n \mod{m}\)</span></p></li>
+<li class="fragment"><p>當然可以直接<span class="math">\(O(n)\)</span>一個一個乘</p>
+<p>但是<span class="math">\(n\)</span>很大就糟了</p></li>
+<li class="fragment"><p>因此我們需要快速冪</p></li>
+</ul>
+</section><section id="基本想法" class="slide level2">
+<h1>基本想法</h1>
+<ol type="1">
+<li class="fragment"><p>巧妙地利用<span class="math">\(1,a,a^2,a^4,a^8 \ldots\)</span> 等<span class="math">\(\bmod{m}\)</span>的結果，來算出<span class="math">\({a^n}\bmod{m}\)</span>的答案</p></li>
+<li class="fragment"><p>答案初始值設為1，將<span class="math">\(n\)</span>按照二進位分拆</p></li>
+<li class="fragment"><p>如果<span class="math">\(n\)</span>在二進位的第<span class="math">\(i\)</span>的數值是<span class="math">\(1\)</span>，那我們就幫答案乘上<span class="math">\(a^{2^{i}}\)</span></p></li>
+</ol>
+</section><section id="基本想法-1" class="slide level2">
+<h1>基本想法</h1>
+<ol start="4" type="1">
+<li class="fragment">最後的答案就是<span class="math">\({a^n} \bmod{m}\)</span>的值</li>
+</ol>
+<ul>
+<li class="fragment">不難看出是一個<span class="math">\(O(\log{n})\)</span>的算法。</li>
+</ul>
+</section><section id="快速冪-code" class="slide level2">
+<h1>快速冪 Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> pow(<span class="dt">int</span> a, <span class="dt">int</span> b, <span class="dt">int</span> mod) {
+    <span class="dt">int</span> ans = <span class="dv">1</span>, tmp = a;
+    <span class="kw">while</span>(b) {
+        <span class="kw">if</span>(b&amp;<span class="dv">1</span>) ans = ans * tmp % mod;
+        tmp = tmp * tmp % mod;
+        b &gt;&gt;= <span class="dv">1</span>;
+    }
+    <span class="kw">return</span> a;
+}</code></pre>
+</section><section id="反元素-模逆元" class="slide level2">
+<h1>反元素, 模逆元</h1>
+<p>我們常會想要在模底下求某個數字的反元素</p>
+<p>也就是找到<span class="math">\(a^{-1}\)</span>使得<span class="math">\(aa^{-1} \equiv 1 \mod{m}\)</span>，</p>
+<p>如果在<span class="math">\(\mod{m}\)</span>底下<span class="math">\(a\)</span>要有反元素，就必須有<span class="math">\(\gcd(a,m)=1\)</span>，</p>
+</section><section id="裴蜀定理" class="slide level2">
+<h1>裴蜀定理</h1>
+<ul>
+<li class="fragment"><p>對於任意整數<span class="math">\(a, m\)</span>，存在整數<span class="math">\(x,y\)</span>使得</p>
+<p><span class="math">\(ax+my=\gcd(a,m)\)</span></p></li>
+<li class="fragment"><p>如果今天<span class="math">\(\gcd(a,m)=1\)</span>，那就會有，<span class="math">\(ax+my = 1\)</span></p></li>
+<li class="fragment"><p>也就是<span class="math">\(ax \equiv 1 \bmod{m}\)</span></p></li>
+<li class="fragment"><p>此時的<span class="math">\(x\)</span>其實就是<span class="math">\(a\)</span>的反元素，</p></li>
+<li class="fragment"><p>因此可以改進GCD的計算，讓我們計算出<span class="math">\(a\)</span>的反元素。</p></li>
+</ul>
+</section><section id="extended-euclidean-algorithm" class="slide level2">
+<h1>Extended Euclidean Algorithm</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp">
+<span class="dt">int</span> extgcd(<span class="dt">int</span> a, <span class="dt">int</span> b, <span class="dt">int</span> &amp;x, <span class="dt">int</span> &amp;y) {
+    <span class="dt">int</span> d = a;
+    <span class="kw">if</span>(b!=<span class="dv">0</span>) {
+        d = extgcd(b, a%b, y, x);
+        y -= (a/b)*x;
+    }
+    <span class="kw">else</span> x=<span class="dv">1</span>, y=<span class="dv">0</span>;
+    <span class="kw">return</span> d;
+}</code></pre>
+</section></section>
+<section><section id="因數-質數" class="titleslide slide level1"><h1>因數 質數</h1></section><section id="因數" class="slide level2">
+<h1>因數</h1>
+<ul>
+<li class="fragment"><p>一個整數的因數們是整數重要的性質</p></li>
+<li class="fragment"><p>如果想要計算一個數字的所有因數</p></li>
+<li class="fragment"><p>可以利用一個重要的性質</p></li>
+<li class="fragment"><p>如果<span class="math">\(a=xy\)</span>，則會有 <span class="math">\(x\le \sqrt{a}\)</span> 或者 <span class="math">\(y \le \sqrt{a}\)</span></p>
+<p>所以只需要檢查所有小於等於<span class="math">\(\sqrt{a}\)</span>的數字</p>
+<p>就可以算出<span class="math">\(a\)</span>所有的因數，複雜度為<span class="math">\(O(\sqrt{a})\)</span></p></li>
+</ul>
+</section><section id="因數-code" class="slide level2">
+<h1>因數 Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp">vector&lt;<span class="dt">int</span>&gt; factor(<span class="dt">int</span> a){
+    vector&lt;<span class="dt">int</span>&gt; res;
+    <span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">1</span>;i&lt;sqrt(a);i++){
+        <span class="kw">if</span>(a%i==<span class="dv">0</span>){
+            res.push_back(i);
+            res.push_back(a/i);
+        }
+    }
+    <span class="dt">int</span> s=(<span class="dt">int</span>)sqrt(a);
+    <span class="kw">if</span>(a%s==<span class="dv">0</span>)res.push_back(s);
+}</code></pre>
+</section><section id="重要" class="slide level2">
+<h1>重要!!!</h1>
+<ul>
+<li class="fragment"><p>「如果<span class="math">\(a=xy\)</span>，則<span class="math">\(x\le \sqrt{a}\)</span> or <span class="math">\(y \le \sqrt{a}\)</span>」</p></li>
+<li class="fragment"><p>常常可以利用這個性質做出複雜度根號的做法</p></li>
+</ul>
+</section><section id="質數" class="slide level2">
+<h1>質數</h1>
+<ul>
+<li class="fragment"><p>質數在數論中可是很重要的東西</p></li>
+<li class="fragment"><p>從因數的觀點來看是一種整數的單元</p></li>
+<li class="fragment"><p>而在模質數<span class="math">\(p\)</span>底下除了0以外的所有數字都存在模逆元！</p></li>
+<li class="fragment"><p>就是我們昨天講到<span class="math">\(\mathbb{Z}_m\)</span>是個Filed這件事(還記得嗎？)</p></li>
+<li class="fragment"><p>這代表著一件有趣的事，我們可以在模<span class="math">\(p\)</span>底下進行「除法」。</p></li>
+</ul>
+</section><section id="質數判定" class="slide level2">
+<h1>質數判定</h1>
+<ul>
+<li class="fragment"><p>想要把整數用質數來處理，當然要先知道要怎樣判斷一個質數</p></li>
+<li class="fragment"><p>如果我們想要判定單一個數字是不是質數，可以簡單地利用因數分解，只要一個數的因數只有1和自己就是質數，</p></li>
+</ul>
+</section><section id="primality-test" class="slide level2">
+<h1>Primality Test</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> isPrime(<span class="dt">int</span> a) {
+    <span class="kw">if</span>(a==<span class="dv">1</span>) <span class="kw">return</span> <span class="kw">false</span>;
+    <span class="kw">else</span> <span class="kw">return</span> (factor(a).size() == <span class="dv">2</span>);
+}</code></pre>
+<ul>
+<li class="fragment"><p>利用剛剛寫過的因數分解，需要<span class="math">\(O(\sqrt{a})\)</span>的時間判斷。</p></li>
+<li class="fragment"><p>最後我們會介紹更快驗質數的方法</p></li>
+</ul>
+</section><section id="篩法" class="slide level2">
+<h1>篩法</h1>
+<ul>
+<li class="fragment"><p>如果今天想要重複的問不同數字是不是質數</p></li>
+<li class="fragment"><p>我們可以開個陣列存某個數字是不是質數，利用篩法來算出有哪些質數</p></li>
+</ul>
+</section><section id="篩法中心精神" class="slide level2">
+<h1>篩法中心精神</h1>
+<ul>
+<li class="fragment"><p>每遇到一個質數<span class="math">\(p\)</span>，我們就把所有<span class="math">\(p\)</span>的倍數<span class="math">\(2p, 3p \ldots\)</span>在陣列中都標記成<span class="math">\(false\)</span>，將它們「篩掉」</p></li>
+<li class="fragment"><p>一樣每個正整數只需要知道自己「根號」以內的數字都不整除自己，該正整數就是個質數</p></li>
+<li class="fragment"><p>因此只需要篩到<span class="math">\(\sqrt{n}\)</span>就可以確定<span class="math">\(n\)</span>以內有哪些是質數</p></li>
+</ul>
+</section><section id="質數個數" class="slide level2">
+<h1>質數個數</h1>
+<blockquote>
+<p>給定整數<span class="math">\(n\)</span>，請問有多少質數小於<span class="math">\(n\)</span>？</p>
+</blockquote>
+</section><section id="質數個數-code" class="slide level2">
+<h1>質數個數 Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> prime[N], ptop, numOfPrime[N];
+<span class="dt">bool</span> isPrime[N];
+<span class="dt">void</span> init(){
+    pTop=<span class="dv">0</span>;
+    <span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">2</span>;i&lt;N;i++)isPrime[i]=<span class="kw">true</span>;
+    <span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">2</span>;i&lt;N;i++){
+        <span class="kw">if</span>(isPrime[i]){
+            prime[pTop++]=i;
+            <span class="kw">for</span>(<span class="dt">int</span> j=<span class="dv">2</span>*i;j&lt;N;j+=i)isPrime[j]=<span class="kw">false</span>;
+            numOfPrime[i]=numOfPrime[i<span class="dv">-1</span>]<span class="dv">+1</span>;
+        }
+        <span class="kw">else</span> numOfPrime[i]=numOfPrime[i<span class="dv">-1</span>];
+    }
+}</code></pre>
+</section><section id="質數個數pin" class="slide level2">
+<h1>質數個數<span class="math">\(\pi(n)\)</span></h1>
+<p>而數學上對於質數個數有這樣個重要的結論</p>
+<blockquote>
+<p><span class="math">\(\pi(n) \approx \frac n {\ln n}\)</span></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math">\(n\)</span></th>
+<th style="text-align: right;"><span class="math">\(\pi(n)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: right;">168</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100</td>
+<td style="text-align: right;">1229</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1000</td>
+<td style="text-align: right;">9592</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10000</td>
+<td style="text-align: right;">78498</td>
+</tr>
+</tbody>
+</table>
+</section><section id="質因數分解" class="slide level2">
+<h1>質因數分解</h1>
+<p>一個整數N我們可以分解成他質因數冪次的乘積</p>
+<blockquote>
+<p><span class="math">\(N = {p_1}^{e_1} \times {p_2}^{e_2} \times ... \times {p_n}^{e_n}\)</span></p>
+</blockquote>
+<p>通常我們會用vector of pairs來表示<span class="math">\(N\)</span>質因數分解後的結果</p>
+<p>質因數個數約莫是<span class="math">\(O(\log{N})\)</span></p>
+</section><section id="實作" class="slide level2">
+<h1>實作?</h1>
+<ul>
+<li class="fragment"><p>我們可以掃過所有小於<span class="math">\(\sqrt{N}\)</span>的所有質數，然後用while從把N除掉</p></li>
+<li class="fragment"><p>但是這樣最差還是<span class="math">\(O(\sqrt{N})\)</span></p></li>
+<li class="fragment"><p>有沒有辦法只看質因數個數次？</p></li>
+</ul>
+</section><section id="實作-1" class="slide level2">
+<h1>實作</h1>
+<ul>
+<li class="fragment"><p>我們可以利用篩法，對於每個數字記錄他其中一個質因數</p></li>
+<li class="fragment"><p>就是primeFactor[i]</p></li>
+</ul>
+</section><section id="修改的質數篩法片段" class="slide level2">
+<h1>修改的質數篩法片段</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp">        <span class="kw">if</span>(isPrime[i]){
+            prime[pTop++]=i;
+            firstPrime[i]=i;
+            <span class="kw">for</span>(<span class="dt">int</span> j=<span class="dv">2</span>*i;j&lt;N;j+=i)
+                isPrime[j]=<span class="kw">false</span>,primeFactor[j]=i;
+            numOfPrime[i]=numOfPrime[i<span class="dv">-1</span>]<span class="dv">+1</span>;
+        }</code></pre>
+</section><section id="質因數分解-code" class="slide level2">
+<h1>質因數分解 Code</h1>
+<p>讓我們回到質因數分解</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">typedef</span> pair&lt;<span class="dt">int</span>,<span class="dt">int</span>&gt; PII;
+<span class="kw">typedef</span> vector&lt;PII&gt; VPII;
+<span class="ot">#define pb(x) push_back(x)</span>
+<span class="ot">#define mp(x,y) make_pair(x,y)</span>
+VPII factorInt(<span class="dt">int</span> n){
+    VPII res;
+    <span class="kw">while</span>(n&gt;<span class="dv">1</span>){
+        <span class="dt">int</span> p = primeFactor[n];
+        <span class="dt">int</span> e =<span class="dv">0</span>;
+        <span class="kw">while</span>(n%p==<span class="dv">0</span>)n/=p,e++;
+        res.pb(mp(p,e));
+    }
+    <span class="kw">return</span> res;
+}</code></pre>
+</section><section id="應用" class="slide level2">
+<h1>應用</h1>
+<ul>
+<li class="fragment"><p>質因數分解可以做啥呢？</p></li>
+<li class="fragment"><p>因數個數<span class="math">\(d(N)\)</span></p>
+<p><span class="math">\(d(N) = \prod\limits_{i=1}^n {(e_{i}+1)}\)</span></p></li>
+<li class="fragment"><p>尤拉函數 <span class="math">\(\varphi(N)\)</span></p>
+<p><span class="math">\(\varphi(N)= N \times \prod\limits_{i=1}^n {(1- \frac{1}{p_i})}\)</span></p></li>
+</ul>
+</section><section id="排容原理" class="slide level2">
+<h1>排容原理</h1>
+<p>我們可以利用質因數來做排容原理。</p>
+<blockquote>
+<p>給定整數<span class="math">\(N,K\)</span>， 請輸出一個答案表示在<span class="math">\([1,N]\)</span>之中與<span class="math">\(K\)</span>互質的整數個數。</p>
+</blockquote>
+</section><section id="solution" class="slide level2">
+<h1>Solution</h1>
+<ul>
+<li class="fragment"><p>想要計算一個數字<span class="math">\(k\)</span>在<span class="math">\([1,N]\)</span>中有多少倍數</p>
+<p>可以簡單地用<span class="math">\([N/k]\)</span>做到</p></li>
+<li class="fragment"><p>從質因數<span class="math">\(S = \{p_1,p_2,...,p_n\}\)</span>中，窮舉所有的非空子集合</p></li>
+<li class="fragment"><p>對於任意一種集合<span class="math">\(s\)</span>，計算<span class="math">\([1,N]\)</span>中有多少是這個<span class="math">\(s\)</span>裡面質數乘積的倍數</p></li>
+<li class="fragment"><p>然後乘上<span class="math">\((-1)^{|s|}\)</span>加起來</p></li>
+</ul>
+</section><section id="solution-1" class="slide level2">
+<h1>Solution</h1>
+<ul>
+<li class="fragment"><p>所以答案其實是</p>
+<p><span class="math">\(N - (\sum [N/p_i] - \sum [N/(p_ip_j)] + \sum [N/(p_ip_jp_k)]......)\)</span></p></li>
+</ul>
+</section><section id="code" class="slide level2">
+<h1>Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">typedef</span> vector&lt; pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; &gt; VPII;
+<span class="dt">int</span> solve(<span class="dt">int</span> N, <span class="dt">int</span> K) {
+    VPII factor = factorInt(N);
+    <span class="dt">int</span> ans = <span class="dv">0</span>;
+    <span class="kw">for</span>(<span class="dt">int</span> i = <span class="dv">1</span>; i&lt;((<span class="dv">1</span>&lt;&lt;factor.size())<span class="dv">-1</span>) ; i++){
+        <span class="dt">int</span> tmp = <span class="dv">1</span>, now = i;
+        <span class="dt">int</span> count = <span class="dv">0</span>, idx = <span class="dv">0</span>;
+        <span class="kw">while</span>(now){
+            <span class="kw">if</span>(now&amp;<span class="dv">1</span>){
+                count++;
+                tmp *= factor[idx].first;
+            }
+            idx++, now&gt;&gt;=<span class="dv">1</span>;
+        }
+        <span class="dt">int</span> s = (count%<span class="dv">2</span> == <span class="dv">0</span>) ? <span class="dv">1</span>:<span class="dv">-1</span>;
+        ans += s*(N/tmp);
+    }
+    <span class="kw">return</span> N - ans;
+}</code></pre>
+</section><section id="綜合應用" class="slide level2">
+<h1>綜合應用</h1>
+<p>給定<span class="math">\(N\)</span>和<span class="math">\(K\)</span>個小於等於<span class="math">\(N\)</span>的質數 <span class="math">\(p_1 \ldots p_K\)</span> ，<span class="math">\(N\)</span>代表有標號<span class="math">\(1\)</span>到<span class="math">\(N\)</span>的<span class="math">\(N\)</span>盞燈，每個質數<span class="math">\(p_i\)</span>是一個開關，按下去的瞬間會把 <span class="math">\([1,N]\)</span> 之中所有是這個質數倍數的燈會狀態改變，亮的變暗，暗的變亮。如果一開始所有燈都是暗的，你可以自由地使用質數開關，請問最後最多可以有多少燈是亮的呢？</p>
+</section></section>
+<section><section id="有名的數論定理" class="titleslide slide level1"><h1>有名的數論定理</h1></section><section id="費馬小定理" class="slide level2">
+<h1>費馬小定理</h1>
+<blockquote>
+<p><span class="math">\(a^p \equiv a \bmod{p}\)</span></p>
+</blockquote>
+<p>特別的是如果<span class="math">\(\gcd(a,p)=1\)</span>，可以有</p>
+<blockquote>
+<p><span class="math">\(a^{p-1} \equiv 1 \bmod{p}\)</span></p>
+</blockquote>
+</section><section id="反元素-again" class="slide level2">
+<h1>反元素 again</h1>
+<ul>
+<li class="fragment"><p>如果我們想要計算一個整數<span class="math">\(a\)</span>在<span class="math">\(\mod p\)</span>之下的反元素<span class="math">\(a^{-1}\)</span></p>
+<p>在<span class="math">\(\gcd(a,p) = 1\)</span>的狀況下我們知道，<span class="math">\(a^{p-1} \equiv 1 \bmod{p}\)</span></p></li>
+<li class="fragment"><p>有趣的是<span class="math">\(a\times (a^{p-2}) \equiv 1 \bmod{p}\)</span></p>
+<p>所以<span class="math">\((a^{p-2})\equiv a^{-1} \bmod{p}\)</span></p></li>
+</ul>
+</section><section id="反元素-code" class="slide level2">
+<h1>反元素 Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> inverse(<span class="dt">int</span> a, <span class="dt">int</span> p){
+    <span class="kw">return</span> pow(a, p<span class="dv">-2</span>, p); 
+}</code></pre>
+</section><section id="尤拉函數" class="slide level2">
+<h1>尤拉函數</h1>
+<p>尤拉函數是在計算對於一個整數<span class="math">\(N\)</span>， 小於等於<span class="math">\(N\)</span>的整數，且跟<span class="math">\(N\)</span>互質的有多少個，常用<span class="math">\(\varphi(N)\)</span>表示。</p>
+<blockquote>
+<p><span class="math">\(\varphi(N)= N \times \prod\limits_{i=1}^n {(1- \frac{1}{p_i})}\)</span> <span class="math">\(\prod\limits_{i=1}^n {{p_i}^{e_i-1}*(p_i-1)}\)</span></p>
+</blockquote>
+</section><section id="令人困擾的gcd" class="slide level2">
+<h1>令人困擾的<span class="math">\(\gcd\)</span></h1>
+<blockquote>
+<p>給定整數<span class="math">\(N, d\)</span>，請問<span class="math">\([1,N]\)</span>中有多少整數<span class="math">\(i\)</span>， <span class="math">\(\gcd(i,N) = d\)</span>呢？</p>
+</blockquote>
+</section><section id="solution-2" class="slide level2">
+<h1>Solution</h1>
+<ol type="1">
+<li class="fragment"><p>因為<span class="math">\(\gcd(i,N)\)</span>整除<span class="math">\(N\)</span>，所以如果<span class="math">\(d\)</span>不是<span class="math">\(N\)</span>的因數就答案一定是0。</p></li>
+<li class="fragment"><p>如果<span class="math">\(N\)</span>是<span class="math">\(d\)</span>的倍數，那 <span class="math">\(N/d\)</span>就會是個整數。</p></li>
+</ol>
+<ul>
+<li class="fragment"><p>又因為<span class="math">\(\gcd(i,N)=d\)</span>，所以<span class="math">\(i\)</span>一定是<span class="math">\(d\)</span>的倍數，在<span class="math">\([1,N]\)</span>中其實只有<span class="math">\(d, 2d ...,j\times d, ..., (N/d) \times d\)</span>有可能是<span class="math">\(i\)</span>，讓我們重新回到等式並做些化簡</p>
+<p><span class="math">\(d = \gcd(j\times d, N) = d \times \gcd(j,N/d)\)</span></p></li>
+</ul>
+</section><section id="solution-3" class="slide level2">
+<h1>Solution</h1>
+<ul>
+<li class="fragment"><p>從上面等式中我們會發現我們其實要找</p>
+<p><span class="math">\(j \in [1,N/d]\)</span>且<span class="math">\(\gcd(j,N/d) =1\)</span></p></li>
+<li class="fragment"><p>這樣的個數就是</p>
+<p>「小於等於<span class="math">\(N/d\)</span>且與其互質的正整數個數」</p>
+<p><span class="math">\(\varphi(N/d)\)</span></p></li>
+</ul>
+</section><section id="尤拉定理" class="slide level2">
+<h1>尤拉定理</h1>
+<p>尤拉定理是比較general版本的費馬小定理，如果<span class="math">\(\gcd(a,n)=1\)</span></p>
+<blockquote>
+<p><span class="math">\(a^{\varphi (n)} \equiv 1 \bmod{n}\)</span></p>
+</blockquote>
+<p>特別當<span class="math">\(n\)</span>是質數時是費馬小定理。</p>
+</section><section id="又是反元素" class="slide level2">
+<h1>又是反元素</h1>
+<p>如費馬小定理一般，若<span class="math">\(a\)</span>與<span class="math">\(n\)</span>互質， 我們可以利用尤拉定理求出<span class="math">\(a\)</span>在<span class="math">\(n\)</span>下的模逆元， 也就是<span class="math">\(a^{\varphi(n)-1}\)</span>。</p>
+</section><section id="來點應用吧" class="slide level2">
+<h1>來點應用吧？</h1>
+<ul>
+<li class="fragment">RSA加密演算法</li>
+</ul>
+</section><section id="加密算法" class="slide level2">
+<h1>加密算法</h1>
+<ul>
+<li class="fragment"><p>在討論RSA之前，我們應該先來談談什麼是加密</p></li>
+<li class="fragment"><p>通常就是兩個人想要傳訊息，但是有不想讓中間的人看到的訊息</p></li>
+<li class="fragment"><p>最常見的加密方法都會有公鑰與私鑰，我們會將公鑰傳給「會傳東西給我們」的人，私鑰自己保管好</p></li>
+<li class="fragment"><p>如果要傳訊息，那就是擁有公要的人用公鑰把東西加密，我們收到之後用私要解密</p></li>
+</ul>
+</section><section id="rsa製作key" class="slide level2">
+<h1>RSA製作key</h1>
+<ol type="1">
+<li class="fragment">隨意選擇兩個大的質數p和q，p不等於q，計算N=pq。</li>
+<li class="fragment">根據歐拉函式，求得<span class="math">\(r=\varphi(N) = \varphi(p)\varphi(q)=(p-1)(q-1)\)</span></li>
+<li class="fragment">選擇一個小於<span class="math">\(r\)</span>的整數<span class="math">\(e\)</span>，求得<span class="math">\(e\)</span>關於<span class="math">\(r\)</span>的模反元素，命名為<span class="math">\(d\)</span>。（模反元素存在，若且唯若<span class="math">\(e\)</span>與<span class="math">\(r\)</span>互質）</li>
+<li class="fragment">將p和q的記錄銷毀。</li>
+</ol>
+<ul>
+<li class="fragment"><span class="math">\((N,e)\)</span>是公鑰，<span class="math">\((N,d)\)</span>是私鑰。</li>
+</ul>
+</section><section id="加密" class="slide level2">
+<h1>加密</h1>
+<ul>
+<li class="fragment"><p>如果我們要傳送<span class="math">\(m\)</span>，我們可以先把它分拆成每個單元都小於<span class="math">\(N\)</span>的數字<span class="math">\(n\)</span></p></li>
+<li class="fragment"><p>對於一個<span class="math">\(n\)</span>我們把東西加密成<span class="math">\(c\)</span></p>
+<p><span class="math">\(n^e \equiv c\ (\mathrm{mod}\ N)\)</span></p></li>
+<li class="fragment"><p>然後把東西送出去</p></li>
+</ul>
+</section><section id="解密" class="slide level2">
+<h1>解密</h1>
+<ul>
+<li class="fragment"><p>收到東西之後我只要計算</p>
+<p><span class="math">\(c^d \equiv n\ (\mathrm{mod}\ N)\)</span></p>
+<p>就可以還原出<span class="math">\(n\)</span></p></li>
+</ul>
+</section><section id="解密原理" class="slide level2">
+<h1>解密原理</h1>
+<ul>
+<li class="fragment"><p><span class="math">\(c^d \equiv n^{e \cdot d}\ (\mathrm{mod}\ N)\)</span></p>
+<p>以<span class="math">\(及ed = 1 (\mathrm{mod} p-1)和ed = 1 (\mathrm{mod} q-1)\)</span></p></li>
+<li class="fragment"><p>由歐拉定理可證明（因為<span class="math">\(p\)</span>和<span class="math">\(q\)</span>是質數）</p>
+<p><span class="math">\(n^{e \cdot d} \equiv n\ (\mathrm{mod}\ p)\)</span>和<span class="math">\(n^{e \cdot d} \equiv n\ (\mathrm{mod}\ q)\)</span></p></li>
+<li class="fragment"><p>這說明</p>
+<p><span class="math">\(n^{e \cdot d} \equiv n\ (\mathrm{mod}\ pq)\)</span></p></li>
+</ul>
+</section><section id="wilsons-theorem" class="slide level2">
+<h1>Wilson's theorem</h1>
+<blockquote>
+<p>對於質數<span class="math">\(p\)</span>來說，</p>
+<p><span class="math">\((p-1)! \equiv -1 \bmod{p}\)</span></p>
+</blockquote>
+</section><section id="cnm" class="slide level2">
+<h1>C(n,m)</h1>
+<p><span class="math">\(C(n,m) = \frac{n!}{m!(n-m)!}\)</span></p>
+<p>預處理 <code>f[i]</code> ,<code>invf[i]</code>。</p>
+<p><span class="math">\(C(n,m) = C(n-1,m) + C(n-1,m-1)\)</span></p>
+</section></section>
+<section><section id="循環節" class="titleslide slide level1"><h1>循環節</h1></section><section id="section-2" class="slide level2">
+<h1></h1>
+<p>整數在<span class="math">\(\mod{m}\)</span>下是一個元素有限的集合，又寫作<span class="math">\(\mathbb{Z}_m\)</span>。</p>
+<p>所以當一個整數<span class="math">\(a\)</span>，把他的所有次方<span class="math">\(1, a, a^2, a^3 \cdots\)</span>列出來， 因為這數列可以無限的下去，鴿籠原理告訴你說一定存在兩個不同的<span class="math">\(i,j\)</span>，其中<span class="math">\(i&lt;j, a^i \equiv a^j \mod{m}\)</span>，對於任意大於等於<span class="math">\(i\)</span>的整數<span class="math">\(k\)</span></p>
+<blockquote>
+<p><span class="math">\(a^k \equiv a^{k-i}a^{i} \equiv a^{k-i}a^{j}\)</span></p>
+<p><span class="math">\(\equiv a^{k +(j-i)} \mod{m}\)</span></p>
+</blockquote>
+</section><section id="section-3" class="slide level2">
+<h1></h1>
+<p>因此對任意這樣的<span class="math">\(k\)</span>來說， 任何正整數<span class="math">\(m\)</span>都會讓下面等式滿足，</p>
+<blockquote>
+<p><span class="math">\(a^{k} \equiv a^{k+ m\times(j-i)} \mod{m}\)</span></p>
+</blockquote>
+<p>這時候其實我們就找到了所謂的循環節！</p>
+<blockquote>
+<p>Recall: 費馬小定理 或是 尤拉定理</p>
+</blockquote>
+</section><section id="有趣的結論" class="slide level2">
+<h1>有趣的結論</h1>
+<ol type="1">
+<li class="fragment">最短循環節的長度一定是<span class="math">\(\varphi(m)\)</span>的因數！</li>
+</ol>
+<ul>
+<li class="fragment">這...不好說啊</li>
+</ul>
+<ol start="2" type="1">
+<li class="fragment"><p>再來是只要從<span class="math">\(1, a, a^2, a^3, a^4...\)</span>找下去，</p>
+<p>我們可以用map去記錄看過的數字</p>
+<p>在<span class="math">\(O(\log{m} +\varphi(m))\)</span>的時間內一定會找到最短的循環節，</p></li>
+</ol>
+</section><section id="section-4" class="slide level2">
+<h1></h1>
+<p>簡單的解釋<span class="math">\(\log{m}\)</span>的存在， 一開始不一定會出現循環節的原因， 其實是因為那些<span class="math">\(a\)</span>與<span class="math">\(m\)</span>之間共有的質因數。</p>
+<p>如果那些質因數在<span class="math">\(a^i\)</span>次方夠大時超過了<span class="math">\(m\)</span>裡面同樣質因數的次方數， 那該質因數對於mod就不再會有影響， 所以約莫要花上<span class="math">\(\log{m}\)</span>的時間來做到這件事。</p>
+</section><section id="section-5" class="slide level2">
+<h1></h1>
+<p>這兩個結論告訴我們， 通常可以很放心的直接一個個跑下去找循環節， 很快就會找到。 很重要的是循環節通常會用兩個數字表示:</p>
+<ol type="1">
+<li class="fragment"><p>一個代表從哪個次方會開始循環。</p></li>
+<li class="fragment"><p>一個代表循環節長度。</p></li>
+</ol>
+</section><section id="次方次方" class="slide level2">
+<h1>次方次方</h1>
+<blockquote>
+<p>給定正整數<span class="math">\(a_1, a_2 ,a_3\)</span>， 再給定一個數字<span class="math">\(m\)</span>，</p>
+<p>請問<span class="math">\(a_1^{a_2^{a_3}} \bmod{m}\)</span> 的答案應該要是多少?</p>
+</blockquote>
+</section><section id="solution-4" class="slide level2">
+<h1>Solution</h1>
+<ul>
+<li class="fragment">如果<span class="math">\(a_1\)</span>與<span class="math">\(m\)</span>互質，我們可以很簡單的用尤拉定理，</li>
+<li class="fragment"><p>因為<span class="math">\({a_1}^{\varphi(m)}\equiv 1 \mod{m}\)</span>，</p>
+<p>所以可以讓<span class="math">\(t\equiv{a_2}^{a_3} \mod{\varphi(m)}\)</span>，</p></li>
+<li class="fragment"><p>然後就可以直接用<span class="math">\({a_i}^t\)</span>算出答案。</p></li>
+<li class="fragment"><p>但如果不互質的話，</p>
+<p>我們其實可以去跑<span class="math">\(a_1\)</span>在<span class="math">\(m\)</span>中的起點與循環節，</p>
+<p>假設起點是<span class="math">\(k\)</span>循環節是<span class="math">\(r\)</span>。</p></li>
+</ul>
+</section><section id="要先判斷大小" class="slide level2">
+<h1>要先判斷大小，</h1>
+<ol type="1">
+<li class="fragment"><p>如果<span class="math">\({a_2}^{a_3} &lt; k\)</span>我們直接去計算答案就好，</p>
+<p>因為<span class="math">\(k\)</span>不會太大。</p></li>
+<li class="fragment"><p>如果<span class="math">\({a_2}^{a_3} \ge k\)</span></p>
+<p>那我們其實可以去計算<span class="math">\(t \equiv {a_2}^{a_3}-k \mod{r}\)</span>，</p>
+<p>那答案就是<span class="math">\(a^k \times a^t \mod{m}\)</span>。</p></li>
+</ol>
+</section><section id="好寫的小技巧" class="slide level2">
+<h1>好寫的小技巧</h1>
+<p>對於 <span class="math">\(a^k \equiv x \mod{m}\)</span></p>
+<ul>
+<li class="fragment">訂個上限 <span class="math">\(len\)</span></li>
+<li class="fragment">如果 <span class="math">\(k &lt;= len\)</span> 就直接算 <span class="math">\(a^k \mod{m}\)</span></li>
+<li class="fragment"><p>如果 <span class="math">\(k &gt; len\)</span></p>
+<p><span class="math">\(k \equiv k&#39; \mod{phi(m)}\)</span></p>
+<p>就算 <span class="math">\(a^{k&#39; + phi(m)}\)</span></p></li>
+</ul>
+</section></section>
+<section><section id="中國剩餘定理" class="titleslide slide level1"><h1>中國剩餘定理</h1></section><section id="中國剩餘定理-1" class="slide level2">
+<h1>中國剩餘定理</h1>
+<p>這個定理想必大家耳熟能詳?</p>
+<p>孫子算經中曾有段話:</p>
+<p>「今有物不知其數，三三數之賸二，五五數之賸三，七七數之賸二，問物幾何？」</p>
+<p>答曰：「二十三」</p>
+<p>或許這就是中國剩餘定理最早的來由吧。</p>
+</section><section id="韓信點兵" class="slide level2">
+<h1>韓信點兵</h1>
+<p>劉邦想要知道韓信到底有多少能力可以帶兵打仗， 他想要考考韓信估計兵力的能力， 於是問個問題說：</p>
+<p>「如果每個帳篷住十個人會剩下兩個，</p>
+<p>如果每餐都有十一個人坐在火爐邊吃飯那就會剩下三人，</p>
+<p>如果每個隊伍有十三個人就會有一小隊只有五人，</p>
+<p>那這個軍隊中應該要有多少人呢？」</p>
+</section><section id="section-6" class="slide level2">
+<h1></h1>
+<p>雖然韓信很聰明， 但想說如果每天劉邦都亂出一題新的來問就麻煩了， 所以想請你寫個程式來幫他算算答案。</p>
+<p>劉邦出題的方式很固定，每次都是<span class="math">\(n\)</span>個問句， 每個問句都是說如果<span class="math">\(m_i\)</span>個人一團會剩下<span class="math">\(a_i\)</span>個人， 這裡特別有<span class="math">\(m_i\)</span>裡面兩兩互質， 因為不互質劉邦自己也不太會。</p>
+<p>想請你算出最小可能的軍隊人數<span class="math">\(x\)</span>是？</p>
+</section><section id="section-7" class="slide level2">
+<h1></h1>
+<p><span class="math">\(\left\{ \begin{matrix} x \equiv a_1 \pmod {m_1} \\ x \equiv a_2 \pmod {m_2} \\ \vdots \qquad\qquad\qquad \\ x \equiv a_n \pmod {m_n} \end{matrix} \right.\)</span></p>
+</section><section id="solution-5" class="slide level2">
+<h1>Solution</h1>
+<p>因為<span class="math">\(m_i\)</span>之間兩兩互質，所以一定有解，</p>
+<p>我們直接構造答案來證明這件事，這也順便給出了一種算出答案的做法。</p>
+<ul>
+<li class="fragment"><p>首先設<span class="math">\(M = \prod_{i=1}^n m_i\)</span> ，並設<span class="math">\(M_i = M/m_i\)</span>。</p></li>
+<li class="fragment"><p>然後我們可以計算<span class="math">\(t_i\)</span>為<span class="math">\(M_i\)</span>在<span class="math">\(\mod{m_i}\)</span>下的模逆元，</p>
+<p>也就是<span class="math">\(t_iM_i \equiv 1 \mod{m_i}\)</span>。</p></li>
+</ul>
+</section><section id="section-8" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>因為<span class="math">\(M_i\)</span>為除了<span class="math">\(m_i\)</span>之外的<span class="math">\(m_j\)</span>的乘積，所以與<span class="math">\(m_i\)</span>互質，</p>
+<p>這裡可以使用尤拉定理或是Extended Euclidean Algorithm來算出模逆元<span class="math">\(t_i\)</span>。</p></li>
+<li class="fragment"><p>最後答案<span class="math">\(\sum\limits_{i=1}^{n} a_it_iM_i \mod{M}\)</span>就會是的結果。</p>
+<p>為甚麼答案是對的呢？</p></li>
+</ul>
+</section><section id="section-9" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>因為對於任意的<span class="math">\(m_j\)</span>，</p>
+<p><span class="math">\(\sum\limits_{i=1}^{n} a_it_iM_i \equiv a_jt_jM_j \equiv a_j \mod{m_j}\)</span></p>
+<p>然後<span class="math">\(M\)</span>被任意的<span class="math">\(m_j\)</span>整除。</p>
+<p>這樣可以獲得一個<span class="math">\(O(n \log{m})\)</span>的中國剩餘定理做法。</p></li>
+</ul>
+</section></section>
+<section><section id="進位制" class="titleslide slide level1"><h1>進位制</h1></section><section id="進位制-1" class="slide level2">
+<h1>進位制</h1>
+<ul>
+<li class="fragment"><p>所謂的<span class="math">\(B\)</span>進制，就是一個數每位的數碼是<span class="math">\(1\)</span>到<span class="math">\(B-1\)</span>，</p>
+<p>數碼逢<span class="math">\(B\)</span>進位。</p></li>
+<li class="fragment"><p>所以如果一個數字在<span class="math">\(B\)</span>進位下是<span class="math">\(\overline{a_na_{n-1}...a_0}_{B}\)</span>，</p></li>
+<li class="fragment"><p>那這個數字在十進位之下就是<span class="math">\(a_n \times B^n + a_{n-1} \times B^{n-1}+......+a_0\)</span>。</p></li>
+</ul>
+</section><section id="section-10" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>進位制是在不只是在數論中會探討，</p>
+<p>在程式語言中進位制也是個需要知道的知識，</p></li>
+<li class="fragment"><p>我們平常在使用的「bit」就是把整數在電腦中做二進位轉換，</p></li>
+<li class="fragment"><p>而我們也會常常看到所謂的HEX，就是數字在電腦中存成16進位的字串。</p></li>
+<li class="fragment"><p>進位制可說是程式中的一種常識。</p></li>
+</ul>
+</section><section id="十進制-to-b進制" class="slide level2">
+<h1>十進制 To <span class="math">\(B\)</span>進制</h1>
+<p>平常我們最常用的進位制就是十進制，</p>
+<p>在這章節中我們用<span class="math">\(a_{(10)}\)</span>來表示<span class="math">\(a\)</span>的十進制數碼，</p>
+<p>如果今天我們要把<span class="math">\(a\)</span>從10進制轉成轉成<span class="math">\(B\)</span>進制，</p>
+</section><section id="to-b-code" class="slide level2">
+<h1>10 to <span class="math">\(B\)</span> Code</h1>
+<p>其實我們不久前才做過??</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> BtoTen(<span class="dt">int</span> a_B[],<span class="dt">int</span> B,<span class="dt">int</span> top){
+    <span class="dt">int</span> res = <span class="dv">0</span>;
+    <span class="dt">int</span> base = <span class="dv">1</span>;
+    <span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;top;i++){
+        res += base*a_B[i];
+        base *= B;
+    }
+    <span class="kw">return</span> res;
+}</code></pre>
+</section><section id="b進制-to-十進制" class="slide level2">
+<h1>B進制 To 十進制</h1>
+<ul>
+<li class="fragment"><p>給定一個數字在<span class="math">\(B\)</span>進位下的數碼，</p>
+<p>要還原成原本的十進位數字，</p></li>
+<li class="fragment"><p>就直接照著進位制的定義可以算出結果。</p>
+<p><span class="math">\(a_n \times B^n + a_{n-1} \times B^{n-1}+......+a_0\)</span></p></li>
+</ul>
+</section><section id="b-to-10-code" class="slide level2">
+<h1><span class="math">\(B\)</span> to 10 Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> BtoTen(<span class="dt">int</span> a_B[],<span class="dt">int</span> B,<span class="dt">int</span> top){
+    <span class="dt">int</span> res = <span class="dv">0</span>;
+    <span class="dt">int</span> base = <span class="dv">1</span>;
+    <span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;top;i++){
+        res += base*a_B[i];
+        base *= B;
+    }
+    <span class="kw">return</span> res;
+}</code></pre>
+</section><section id="進位制的應用" class="slide level2">
+<h1>進位制的應用</h1>
+<ul>
+<li class="fragment">來談談一種進位制的應用，進位制很多時候可以用來簡化的表示一個定理的結果。</li>
+</ul>
+</section><section id="lucass-theorem" class="slide level2">
+<h1>Lucas's Theorem</h1>
+<p>我們要談的是一種跟組合數計算有關的定理，</p>
+<p>當我們要計算<span class="math">\(\binom{n}{m} \bmod{p}\)</span>時，</p>
+<p>如果<span class="math">\(p\)</span>的數量級沒有那麼大，</p>
+<p>我們可以利用這個定理快速的算出這個組合數的結果。</p>
+</section><section id="lucass-theorem-1" class="slide level2">
+<h1>Lucas's Theorem</h1>
+<blockquote>
+<p><span class="math">\(\binom{n}{m} \bmod{p} \equiv \prod\limits_{i=0}^{k} \binom{m_i}{n_i} \bmod{p}\)</span></p>
+<p><span class="math">\(m = \sum\limits_{i=0}^{k} m_i \times p^{i}, n = \sum\limits_{i=0}^{k} n_i \times p^{i}\)</span></p>
+<p>特別的是如果<span class="math">\(m&gt;n\)</span>，那我們讓<span class="math">\(\binom{n}{m} =0\)</span></p>
+</blockquote>
+</section><section id="nim-game" class="slide level2">
+<h1>Nim Game</h1>
+<ul>
+<li class="fragment"><p>這種遊戲中文常叫做「拈」。</p>
+<p>是個經典的遊戲問題，</p>
+<p>其結論也跟進位制有關係。</p></li>
+</ul>
+</section><section id="nim-game-1" class="slide level2">
+<h1>Nim Game</h1>
+<blockquote>
+<p>今天如果我們有<span class="math">\(n\)</span>堆石頭，第<span class="math">\(i\)</span>堆石頭有<span class="math">\(a_i\)</span>個石頭， 兩個人輪流玩遊戲，不能拿的人就輸了， 請問先手還是後手會贏？</p>
+</blockquote>
+</section><section id="section-11" class="slide level2">
+<h1></h1>
+<p>Nim Game的結論是今天我們把所以<span class="math">\(a_i\)</span>轉成二進位，</p>
+<p>對於每一位數統計1的個數，</p>
+<p>如果每一位1個數都是偶數，那就是後手會贏，</p>
+<p>其他是先手會贏。</p>
+<ul>
+<li class="fragment"><p>輸的盤面是所有石頭堆都變為零，</p>
+<p>每位的1個數都是偶數，</p></li>
+</ul>
+</section><section id="section-12" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>舉個例如果石頭有3堆，分別是<span class="math">\(3,4,5\)</span>，</p>
+<p>他們二進制分別是<span class="math">\(011_{(2)}, 100_{(2)}, 101_{(2)}\)</span>，</p>
+<p>第二位1的個數不是偶數，因此先手會贏。</p></li>
+<li class="fragment"><p>要判定這件事，</p>
+<p>其實就是看<span class="math">\(t = \bigoplus\limits_{i=1}^n a_i\)</span>是否<span class="math">\(t=0\)</span>，</p></li>
+</ul>
+</section><section id="section-13" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>有趣的如果先手會贏，他的第一步就是尋找<span class="math">\(i\)</span>使得<span class="math">\(a_i \oplus t &lt; a_i\)</span>的那堆<span class="math">\(i\)</span>，</p></li>
+<li class="fragment"><p>然後把<span class="math">\(a_i\)</span>拿成<span class="math">\(a_i \oplus t\)</span>，</p></li>
+<li class="fragment"><p>這樣新的<span class="math">\(t&#39; = \bigoplus\limits_{i=1}^n {a&#39;}_i = t \oplus t = 0\)</span>，</p></li>
+<li class="fragment"><p>因此我們讓後手拿到XOR為零的盤面，</p>
+<p>也可以保證我們一定可以做到這件事。</p></li>
+</ul>
+</section><section id="joseph-problem" class="slide level2">
+<h1>Joseph Problem</h1>
+<blockquote>
+<p><span class="math">\(N\)</span>個人坐成一個圓，瞬時針編號為<span class="math">\(1, 2,\cdots, N\)</span>， 從1號開始開始順時針報數<span class="math">\(1,2,1,2......\)</span>， 只要數到2的人就會從圈圈中被消除， 請問最後活下來的是幾號呢?</p>
+</blockquote>
+</section><section id="section-14" class="slide level2">
+<h1></h1>
+<p>如果用函數<span class="math">\(f(N)\)</span>來表示N個人玩這個遊戲活下來的號碼， 那我們會得到下列遞迴式</p>
+<ul>
+<li class="fragment"><p><span class="math">\(2f(m)-1\)</span> 如果 <span class="math">\(N = 2m\)</span> 是偶數</p></li>
+<li class="fragment"><p><span class="math">\(2f(m)+1\)</span> 如果 <span class="math">\(N = 2m+1\)</span> 是奇數</p></li>
+</ul>
+</section><section id="section-15" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>這樣的<span class="math">\(f(N)\)</span>的結論可以用進位置表示，</p></li>
+<li class="fragment"><p>今天如果<span class="math">\(N = {b_nb_{n-1}...b_0}_{(2)}\)</span>，最高位<span class="math">\(b_n =1\)</span>，</p></li>
+<li class="fragment"><p>那有趣的是答案會是<span class="math">\(f(N) = {b_{n-1}b_{n-2}...b_0b_n}_{(2)}\)</span>。</p></li>
+</ul>
+</section></section>
+<section><section id="質數專題" class="titleslide slide level1"><h1>質數專題</h1></section><section id="線性算法-linear-sieve" class="slide level2">
+<h1>線性算法 linear sieve</h1>
+<p>希望每個數字都只被篩法篩到一次(原本篩法會被所有質因數遍歷)</p>
+<p>這演算法設計上希望所有的合數<span class="math">\(m\)</span>都只被最小的質因數篩到</p>
+</section><section id="section-16" class="slide level2">
+<h1></h1>
+<p>因此我們改變篩法的方向，</p>
+<p>對於每個數字<span class="math">\(m\)</span>我們用那些小於它的那些質數<span class="math">\(p_i\)</span>乘上<span class="math">\(m\)</span>， 去更新<span class="math">\(m \times p_i\)</span>，讓其被篩掉，</p>
+<p>在<span class="math">\(p_i\)</span>尚未整除<span class="math">\(m\)</span>之前，<span class="math">\(p_i\)</span>一定比<span class="math">\(m\)</span>中最小的質因數還要小。</p>
+</section><section id="線性算法-code" class="slide level2">
+<h1>線性算法 Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> p[N], np=<span class="dv">0</span>;
+<span class="dt">int</span> a[N];     
+<span class="kw">for</span> (<span class="dt">int</span> m = <span class="dv">2</span>; m &lt; N; m++) {
+  <span class="kw">if</span> (a[m] == <span class="dv">0</span>) p[np++] = m;
+  <span class="kw">for</span> (i = <span class="dv">0</span>; i &lt; np &amp;&amp; m*p[i] &lt; N; i++) {
+    a[m*p[i]] = <span class="dv">1</span>;
+    <span class="kw">if</span> (m%p[i] == <span class="dv">0</span>) <span class="kw">break</span>;
+  }
+}</code></pre>
+</section><section id="section-17" class="slide level2">
+<h1></h1>
+<ul>
+<li class="fragment"><p>只要一發現某個質數<span class="math">\(p_i\)</span>整除<span class="math">\(m\)</span>，表示該質數是<span class="math">\(m\)</span>最小的質數，</p></li>
+<li class="fragment"><p>為了讓之後的數字都只被自己最小的質數篩掉</p>
+<p>就該從迴圈中跳出繼續窮舉。</p></li>
+</ul>
+</section><section id="費馬質數判定" class="slide level2">
+<h1>費馬質數判定</h1>
+<ul>
+<li class="fragment"><p>根據費馬小定理我們知道<span class="math">\(a^{p-1}\equiv 1 \mod{p}\)</span>，</p></li>
+<li class="fragment"><p>對於一個未知的<span class="math">\(n\)</span>，</p>
+<p>我們在區間<span class="math">\([1,n-1]\)</span>中選擇很多個<span class="math">\(a\)</span>來進行檢驗，</p>
+<p>如果結果都是1那在費馬質數判定中我們會說他是質數。</p></li>
+</ul>
+</section><section id="錯誤" class="slide level2">
+<h1>錯誤?!</h1>
+<p>費馬質數判定的缺點是</p>
+<p>存在著叫做偽質數 (Carmichael Numbers)數字<span class="math">\(n\)</span>，所有<span class="math">\([1,n-1]\)</span>中的<span class="math">\(a\)</span>都會滿足費馬小定理的等式， 但是<span class="math">\(n\)</span>卻不是質數。</p>
+</section><section id="millerrabin-質數判定法" class="slide level2">
+<h1>Miller–Rabin 質數判定法</h1>
+<ul>
+<li class="fragment">要判定<span class="math">\(N\)</span>是否為質數。</li>
+<li class="fragment"><p>首先將<span class="math">\(N-1\)</span>分解為<span class="math">\(2^sd\)</span>。</p></li>
+<li class="fragment"><p>在每次測試先隨機選一個介於<span class="math">\([1, N-1]\)</span>的整數<span class="math">\(a\)</span>，對所有的<span class="math">\(r \in [0, s-1]\)</span>， 若<span class="math">\(a^d \mod N \neq 1且a^{2^{r}d} \mod N \neq -1\)</span>， 則<span class="math">\(N\)</span>是合數。 不然，<span class="math">\(N\)</span>有<span class="math">\(3/4\)</span>的「機率」為質數。</p></li>
+</ul>
+</section><section id="code-1" class="slide level2">
+<h1>Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> miller_rabin(LL n, LL a) {
+    <span class="kw">if</span> (__gcd(a, n) == n) <span class="kw">return</span> PRIME;
+    <span class="kw">if</span> (__gcd(a, n) != <span class="dv">1</span>) <span class="kw">return</span> COMPOSITE;
+    LL d = n<span class="dv">-1</span>, r = <span class="dv">0</span>, res;
+    <span class="kw">while</span>(d%<span class="dv">2</span>==<span class="dv">0</span>) { ++r; d/=<span class="dv">2</span>; }
+    res = bigmod(a, d, n); <span class="co">//計算 a 的 d 次方除以 n 的餘數</span>
+    <span class="kw">if</span> (res == <span class="dv">1</span> || res == n<span class="dv">-1</span>) <span class="kw">return</span> PRIME;
+    <span class="kw">while</span>(r--) {
+        res = mul(res, res, n); <span class="co">//小心乘法溢位</span>
+        <span class="kw">if</span> (res == n<span class="dv">-1</span>) <span class="kw">return</span> PRIME;
+    }
+    <span class="kw">return</span> COMPOSITE;
+}</code></pre>
+</section><section id="code-2" class="slide level2">
+<h1>Code</h1>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> isprime(LL n) {
+    LL as[<span class="dv">7</span>]={<span class="dv">2</span>, <span class="dv">325</span>, <span class="dv">9375</span>, <span class="dv">28178</span>, <span class="dv">450775</span>, <span class="dv">9780504</span>, <span class="dv">1795265022</span>};
+    <span class="kw">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>;i&lt;<span class="dv">7</span>;i++)
+        <span class="kw">if</span>(miller_rabin(n, as[i]) == COMPOSITE)
+            <span class="kw">return</span> COMPOSITE;
+    <span class="kw">return</span> PRIME;
+}</code></pre>
+</section><section id="section-18" class="slide level2">
+<h1></h1>
+<p>注意到上面程式碼當中的as<a href="#/section"></a>陣列。</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp">LL as[<span class="dv">7</span>]={<span class="dv">2</span>, <span class="dv">325</span>, <span class="dv">9375</span>, <span class="dv">28178</span>, <span class="dv">450775</span>, <span class="dv">9780504</span>, <span class="dv">1795265022</span>};</code></pre>
+<p>其實在 <span class="math">\(2^{64}\)</span> 以內，只要用這幾個 <span class="math">\(a\)</span> 檢查過之後， 就可以完全確定範圍內的數字是否為質數了！ 順帶一提，檢查 int 範圍內的質數只需要以 2, 7, 61 這三個數字為基底檢查就可以了。</p>
+<p>把這幾個數字藏進 codebook 裡是個不錯的選擇唷！</p>
+</section><section id="millerrabin" class="slide level2">
+<h1>Miller–Rabin</h1>
+<p>因為是一定「機率」是質數，所以要做夠多次就幾乎確定該數字是否為質數。</p>
+<p>但是沒有費馬質數判定法的問題，次數夠多一定可以把不是合數的數字篩掉。</p>
+</section><section id="有趣質數-31家族" class="slide level2">
+<h1>有趣質數 3*1家族</h1>
+<blockquote>
+<p>31, 331, 3331, 33331, 333331, 3333331, 33333331都是質數。</p>
+<p>但33333331就不是了。</p>
+</blockquote>
+</section><section id="梅森質數" class="slide level2">
+<h1>梅森質數</h1>
+<blockquote>
+<p>形式為<span class="math">\(2^k -1\)</span>的質數</p>
+</blockquote>
+<p>前四個是<span class="math">\(k =2,3,5,7\)</span>，目前最大的有22,338,618位數。</p>
+<p><span class="math">\(k = 74207281\)</span>。</p>
+</section><section id="the-end" class="slide level2">
+<h1>The End</h1>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'black', // available themes are in /css/theme
+        transition: 'slide', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
